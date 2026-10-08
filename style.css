@@ -1,313 +1,583 @@
+
+  
+/* -------------------------------------------------------- */
+/* VARIABLES */
+/* -------------------------------------------------------- */
+
+/* Variables are used like this: var(--text-color) */
+:root {
+  /* Background Colors: */
+  --background-color: #eeeeee;
+  --content-background-color: #ffffff;
+  --sidebar-background-color: #ffffff;
+
+  /* Text Colors: */
+  --text-color: #000000;
+  --sidebar-text-color: #000000;
+  --link-color: #3026e8;
+  --link-color-hover: #7780ec;
+
+  /* Text: */
+  --font: Arial, sans-serif;
+  --heading-font: 'undefined', sans-serif;
+  --font-size: 14px;
+
+  /* Other Settings: */
+  --margin: 10px;
+  --padding: 20px;
+  --border: 2px solid #000000;
+  --round-borders: 0px;
+  --sidebar-width: 200px;
+}
+
+/* -------------------------------------------------------- */
+/* BASICS */
+/* -------------------------------------------------------- */
+
 * {
   box-sizing: border-box;
 }
 
-/* brand color palette */
-:root {
-  --primary: rgba(68, 88, 119, 1);
-  --secondary: rgba(146, 204, 206, 1);
-  --tertiary: rgba(49, 52, 61, 1);
-  --dark: rgba(28, 29, 33, 1);
-  --light: rgba(238, 238, 247, 1);
-}
-
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  color: var(--primary);
-  background-color: var(--light);
-  line-height: 1.5;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
-
-p {
-  margin: 0;
-}
-
-header {
-  padding: 15px 6% 15px 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-  background-color: var(--tertiary);
-  box-shadow: 0 5px 35px rgba(146, 204, 206, 0.4);
-}
-
-header h1 {
-  color: var(--tertiary);
-  background-color: var(--secondary);
-  padding: 5px 1% 5px 6%;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: var(--font-size);
   margin: 0;
-  font-size: 4vw;
-  line-height: 1;
+  padding: var(--margin);
+  color: var(--text-color);
+  font-family: var(--font);
+  line-height: 1.2;
+  background: var(--background-color);
+  background-image: url("");
+  
 }
 
-nav {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+::selection {
+  /* (Text highlighted by the user) */
+  background: rgba(0, 0, 0, 0.2);
 }
 
-nav a {
+mark {
+  /* Text highlighted by using the <mark> element */
+  text-shadow: 1px 1px 4px var(--link-color);
+  background-color: inherit;
+  color: var(--text-color);
+}
+
+/* Links: */
+a {
+  text-decoration: underline;
+}
+
+a,
+a:visited {
+  color: var(--link-color);
+}
+
+a:hover,
+a:focus {
+  color: var(--link-color-hover);
   text-decoration: none;
-  padding: 5px 10px;
-  color: var(--secondary);
-  margin-right: 10px;
-  background-image: linear-gradient(270deg, var(--secondary) 0%, var(--secondary) 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 0.2em;
-  background-position: bottom;
-  transition: all 0.25s ease-in;
-  font-size: 1.4rem;
 }
 
-nav a:hover {
-  background-size: 100% 100%;
-  color: var(--primary);
-}
+/* -------------------------------------------------------- */
+/* LAYOUT */
+/* -------------------------------------------------------- */
 
-nav a:last-child {
-  margin-right: 0;
+.layout {
+  width: 1200px;
+  display: grid;
+  grid-gap: var(--margin);
+  grid-template: "header header" auto "leftSidebar main" auto "footer footer" auto / var(--sidebar-width) auto;
+  /* Confused by the grid? Check out my tutorial: https://petrapixel.neocities.org/coding/positioning-tutorial#grid */
 }
 
 main {
-  margin-top: 20px;
-  margin-bottom: 45px;
+  grid-area: main;
+  overflow-y: auto;
+  padding: var(--padding);
+  background: var(--content-background-color);
+  border: var(--border);
+  border-radius: var(--round-borders);
 }
 
-.hero-banner {
-  background: rgb(68, 88, 120);
-  background-image: url("../images/02-hero-bg.jpg"), linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: soft-light;
-  min-height: 30vh;
-  color: var(--light);
-  padding: 2% 6%;
+/* -------------------------------------------------------- */
+/* HEADER */
+/* -------------------------------------------------------- */
+
+header {
+  grid-area: header;
+  font-size: 1.2em;
+  border: var(--border);
+  border-radius: var(--round-borders);
+  background: var(--content-background-color);
+}
+
+.header-content {
+  padding: var(--padding);
+}
+
+.header-title {
+  font-family: var(--heading-font);
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.header-image img {
+  width: 100%;
+  height: auto;
+}
+
+/* -------------------------------------------------------- */
+/* SIDEBARS */
+/* -------------------------------------------------------- */
+
+aside {
+  grid-area: aside;
+  border: var(--border);
+  border-radius: var(--round-borders);
+  overflow: hidden;
+  background: var(--sidebar-background-color);
+  padding: var(--padding);
+  color: var(--sidebar-text-color);
+}
+
+.left-sidebar {
+  grid-area: leftSidebar;
+}
+
+.right-sidebar {
+  grid-area: rightSidebar;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: var(--heading-font);
+}
+
+.sidebar-section:not(:last-child) {
+  margin-bottom: 3em;
+}
+
+.sidebar-section ul,
+.sidebar-section ol {
+  padding-left: 1.5em;
+}
+
+.sidebar-section > *:not(p):not(ul):not(ol):not(blockquote) {
+  margin-top: 10px;
+}
+
+/* Sidebar Blockquote: */
+
+.sidebar-section blockquote {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 1em 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sidebar-section blockquote > *:first-child {
+  margin-top: 0;
+}
+
+.sidebar-section blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Site Button: */
+
+.site-button {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  text-align: right;
+  flex-direction: column;
+  align-items: center;
 }
 
-.hero-banner div {
-  flex: 0 0 90%;
+.site-button textarea {
+  font-family: monospace;
+  font-size: 0.7em;
 }
 
-.hero-banner h2 {
-  background-color: var(--secondary);
-  color: var(--tertiary);
-  margin: 0;
-  padding: 5px 10px;
-  font-size: 2.3rem;
-  line-height: 1.2;
-  display: inline;
-}
+/* -------------------------------------------------------- */
+/* FOOTER */
+/* -------------------------------------------------------- */
 
-.page-wrapper {
-  max-width: 88%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.page-section {
-  margin: 25px 0;
-  padding: 10px 0;
+footer {
+  grid-area: footer;
+  border: var(--border);
+  border-radius: var(--round-borders);
+  overflow: hidden;
+  font-size: 0.75em;
+  padding: 15px;
+  background: var(--content-background-color);
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-.page-section > h2 {
-  flex: 0 0 20%;
-  text-align: right;
-  padding-right: 15px;
-  border-right: 4px solid var(--primary);
-  font-size: 4vw;
-  line-height: 1.1;
-}
-
-.page-section > div {
-  flex: 0 0 77%;
-}
-
-.page-section p {
-  margin-bottom: 20px;
-}
-
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
-.flex-item {
-  border: 5px solid var(--secondary);
-  background-color: var(--primary);
-  color: var(--tertiary);
-  min-height: 150px;
-  max-height: 150px;
-  flex-basis: calc(50% - 1em);
-  display: flex;
-  align-items: flex-end;
-  padding: 0 0 20px 0;
-  margin: 0.5em;
-  text-decoration: none;
-  background-blend-mode: soft-light;
-  background-size: 150%;
-  transition: all 0.5s;
-  font-size: 0.9rem;
+footer a,
+footer a:visited {
+  color: var(--link-color);
 }
 
-/* feature first portfolio item */
-.flex-item:first-child {
-    min-height: 400px;
-    flex-basis: 100%;
+footer a:hover,
+footer a:focus {
+  color: var(--link-color-hover);
 }
 
-.flex-item:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+/* -------------------------------------------------------- */
+/* NAVIGATION */
+/* -------------------------------------------------------- */
+
+nav {
+  margin-bottom: 3em;
 }
 
-.flex-item div {
-  background-color: var(--secondary);
-  padding: 8px 10px;
+nav .sidebar-title {
+  margin-bottom: 0.5em;
 }
 
-.flex-item h3 {
-  font-size: 1.6rem;
+nav ul {
+  margin: 0 -5px;
+  padding: 0;
+  list-style: none;
+  user-select: none;
 }
 
-.contact address {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
+nav ul li {
+  margin-bottom: 0;
 }
 
-.contact address a {
-  color: var(--tertiary);
-  padding: 5px;
-  text-decoration: none;
-  font-size: 1.3rem;
-  font-style: normal;
-  background-image: linear-gradient(270deg, var(--primary) 0%, var(--primary) 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 0.2em;
-  background-position: bottom;
-  transition: all 0.25s ease-in;
-  margin: 0 0.2rem 0.1rem;
+nav > ul li > a,
+nav > ul li > strong {
   display: inline-block;
 }
 
-.contact address a:hover {
-  background-size: 100% 88%;
-  color: var(--secondary);
+nav > ul li > a,
+nav > ul li > details summary,
+nav > ul li > strong {
+  padding: 5px 10px;
 }
 
-/* portfolio project images */
-/* TODO: Add portfolio project images here using background images*/
-.run-buddy {
-  background-image: url(https://i.imgur.com/hGiAw4O.jpeg)
+nav > ul li > a.active,
+nav > ul li > details.active summary {
+  font-weight: bold;
 }
 
-.led-wall {
-  background-image: url(https://i.imgur.com/nLr0hVF.jpeg)
+nav ul summary {
+  cursor: pointer;
 }
 
-.react-calc {
-  background-image: url(https://i.imgur.com/fmKYaOD.jpeg)
+nav ul ul li > a {
+  padding-left: 30px;
 }
 
-.pastel-puzzles {
-  background-image: url(https://i.imgur.com/CrPnH6g.jpeg)
+/* NAVIGATION IN HEADER */
+
+header nav {
+  margin-bottom: 0;
 }
 
-.surf-report {
-  background-image: url(https://i.imgur.com/9hEHFYo.jpeg)
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
 }
 
-/* media queries */
+header nav ul li {
+  position: relative;
+}
 
-/* media queries for a max-width of 980px
-@media screen and (max-width: 980px) {
-  header {
-    padding: 0 0 10px 0;
-    justify-content: center;
-    text-align: center;
+header nav ul li:first-child > a {
+  padding-left: 0;
+}
+
+header nav ul li:last-child > a {
+  padding-right: 0;
+}
+
+/* Subnavigation (Drop-Down): */
+
+header nav ul ul {
+  background: var(--content-background-color);
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  padding: 0.5em;
+  z-index: 1;
+  border: var(--border);
+  min-width: 100%;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.2);
+}
+
+header nav ul li:hover ul,
+header nav ul li:focus-within ul {
+  display: block;
+}
+
+header nav ul li strong {
+  color: var(--link-color);
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+header nav ul ul li a {
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* -------------------------------------------------------- */
+/* CONTENT */
+/* -------------------------------------------------------- */
+
+main {
+  line-height: 1.5;
+}
+
+main a,
+main a:visited {
+  color: var(--link-color);
+}
+
+main a:hover,
+main a:focus {
+  color: var(--link-color-hover);
+  text-decoration-style: wavy;
+}
+
+main p,
+main .image,
+main .full-width-image,
+main .two-columns {
+  margin: 0.75em 0;
+}
+
+main ol,
+main ul {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+main ol li,
+main ul li {
+  margin-bottom: 0.2em;
+  line-height: 1.3;
+}
+
+main ol {
+  padding-left: 2em;
+}
+
+main blockquote {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 1em 0;
+  border-radius: 10px;
+}
+
+main pre {
+  margin: 1em 0 1.5em;
+}
+
+main code {
+  text-transform: none;
+}
+
+main center {
+  margin: 1em 0;
+  padding: 0 1em;
+}
+
+main hr {
+  border: 0;
+  border-top: var(--border);
+  margin: 1.5em 0;
+}
+
+/* HEADINGS: */
+
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+  font-family: var(--heading-font);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+main h1:first-child,
+main h2:first-child,
+main h3:first-child,
+main h4:first-child,
+main h5:first-child,
+main h6:first-child {
+  margin-top: 0;
+}
+
+main h1 {
+  font-size: 1.5em;
+}
+
+main h2 {
+  font-size: 1.4em;
+}
+
+main h3 {
+  font-size: 1.3em;
+}
+
+main h4 {
+  font-size: 1.2em;
+}
+
+main h5 {
+  font-size: 1.1em;
+}
+
+main h6 {
+  font-size: 1em;
+}
+
+/* COLUMNS: */
+
+.two-columns {
+  display: flex;
+}
+
+.two-columns > * {
+  flex: 1 1 0;
+  margin: 0;
+}
+
+.two-columns > *:first-child {
+  padding-right: 0.75em;
+}
+
+.two-columns > *:last-child {
+  padding-left: 0.75em;
+}
+
+/* -------------------------------------------------------- */
+/* CONTENT IMAGES */
+/* -------------------------------------------------------- */
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.full-width-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.images {
+  display: flex;
+  width: calc(100% + 5px + 5px);
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.images img {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------- */
+/* ACCESSIBILITY */
+/* -------------------------------------------------------- */
+
+/* please do not remove this. */
+
+#skip-to-content-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  line-height: 1;
+  font-size: 1.25rem;
+  background-color: var(--content-background-color);
+  color: var(--text-color);
+  transform: translateY(-3rem);
+  transition: transform 0.1s ease-in;
+  z-index: 99999999999;
+}
+
+#skip-to-content-link:focus,
+#skip-to-content-link:focus-within {
+  transform: translateY(0);
+}
+
+/* -------------------------------------------------------- */
+/* MOBILE RESPONSIVE */
+/* -------------------------------------------------------- */
+
+/* CSS Code for devices < 800px */
+@media (max-width: 800px) {
+  body {
+    font-size: 14px;
   }
 
-  header h1 {
+  .layout {
     width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    font-size: 10vw;
+    grid-template: "header" auto  "leftSidebar" auto "main" auto "footer" auto / 1fr;
+    /* Confused by the grid? Check out my tutorial: https://petrapixel.neocities.org/coding/positioning-tutorial#grid */
   }
 
-  header nav {
-    justify-content: center;
+  
+  .right-sidebar { 
+    display: none;
   }
 
-  .page-section > h2,
-  .page-section > div {
-    flex: 0 0 100%;
+  aside {
+    border-bottom: 1px solid;
+    padding: 9px;
+    font-size: 0.9em;
   }
 
-  .page-section > h2 {
-    border-right: none;
-    border-bottom: 4px solid var(--primary);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    text-align: left;
-    font-size: 7vw;
-  }
-} */
-
-/* TODO: add media query for a max-width of 768px */
-
-@media screen and (max-width: 768px) {
-  header {
-    padding: 0 0 10px 0;
-    justify-content: center;
-    text-align: center;
+  
+  nav {
+    padding: 0;
   }
 
-  header h1 {
+  nav > ul {
+    padding-top: 0.5em;
+  }
+
+  nav > ul li > a,
+  nav > ul li > details summary,
+  nav > ul li > strong {
+    padding: 0.5em;
+  }
+
+  main {
+    max-height: none;
+    padding: 15px;
+  }
+
+  .images {
+    flex-wrap: wrap;
+  }
+
+  .images img {
     width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    font-size: 10vw;
   }
 
-  header nav {
-    justify-content: center;
-  }
-
-  .page-section > h2,
-  .page-section > div {
-    flex: 0 0 100%;
-  }
-
-  .page-section > h2 {
-    border-right: none;
-    border-bottom: 4px solid var(--primary);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    text-align: left;
-    font-size: 7vw;
+  #skip-to-content-link {
+    font-size: 1rem;
   }
 }
